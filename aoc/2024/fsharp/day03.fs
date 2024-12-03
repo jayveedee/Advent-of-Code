@@ -47,7 +47,6 @@ let findAllowedMulExpression (input: string) (allowMultiply: bool): bool * int =
             | _ -> (allowMultiply, acc) 
     ) (allowMultiply, 0) 
 
-
 let multiplyCorruptedData(input: string list list) (partialUncorrupted: bool): string =
     let uncorruptedData = 
         if partialUncorrupted then
