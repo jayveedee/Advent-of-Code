@@ -2,11 +2,7 @@
 
 open InputHandler
 open day01
-
-let run (day: int) (part: int) (input: int list list) : string =
-    match day with
-    | 1 -> day01.run part input
-    | _ -> failwith (sprintf "Error: day%i not implemented." day)
+open day02
 
 let parseDayAndPart (day: string) (part: string) =
     match System.Int32.TryParse(day), System.Int32.TryParse(part) with
@@ -16,12 +12,18 @@ let parseDayAndPart (day: string) (part: string) =
 // dotnet run -- <day> <part> <use example>
 [<EntryPoint>]
 let main argv =
+    let useExample = Array.length argv = 3
     match argv with
     | [| day; part |] | [| day; part; _ |] ->  
         match parseDayAndPart day part with
         | Some(dayInt, partInt) ->  
-            let input = if Array.length argv = 3 then InputHandler.getInput "0" else InputHandler.getInput day
-            printfn "Result for day%d part%d%s: %s" dayInt partInt (if Array.length argv = 3 then " example" else "") (run dayInt partInt input)
+            let result = 
+                match dayInt with
+                | 1 -> day01.run partInt (InputHandler.getInputTransposed day useExample)
+                | 2 -> day02.run partInt (InputHandler.getInput day useExample)
+                | _ -> failwith "Error: Day not implemented."
+
+            printfn "Result for day%d part%d: %s" dayInt partInt result
             0
         | None -> failwith "Error: Day or part is not a valid integer."
     | _ -> failwith "Usage: MyApp <day> <part>"

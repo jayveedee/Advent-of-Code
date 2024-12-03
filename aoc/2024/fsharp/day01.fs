@@ -34,11 +34,11 @@ let findSimilarityScore (listOfLists: int list list) : string =
                 match List.tryFind (fun (v, _) -> v = value) countRight with
                 | Some (_, rightCount) -> 
                     let similarityScore = acc + (value * leftCount * rightCount)
-                    printfn "value: %i leftCount: %i, rightCount: %i, similarity score: %i" value leftCount rightCount similarityScore
+                    printfn "value: %i leftCount: %i, rightCount: %i, similarity score: %i" value leftCount rightCount (leftCount * rightCount)
                     similarityScore
                 | None -> 
                     let similarityScore = acc + (value * leftCount * 0)  // No match in countRight
-                    printfn "value: %i leftCount: %i, rightCount: 0, similarity score: %i" value leftCount similarityScore
+                    printfn "value: %i leftCount: %i, rightCount: 0, similarity score: %i" value leftCount (leftCount * 0)
                     similarityScore
             ) 0
 
@@ -46,14 +46,8 @@ let findSimilarityScore (listOfLists: int list list) : string =
     | _ -> 
         failwith "The input should be a list of exactly two lists of the same length."
 
-let part01 (input: int list list) : string =
-    findDifferences input
-
-let part02 (input: int list list) : string =
-    findSimilarityScore input
-
 let run (part: int) (input: int list list) : string =
     match part with
-    | 1 -> part01 input
-    | 2 -> part02 input
+    | 1 -> findDifferences input
+    | 2 -> findSimilarityScore input
     | _ -> failwith "part Argument should only be 1 or 2"
