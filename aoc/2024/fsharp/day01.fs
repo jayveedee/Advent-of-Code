@@ -37,7 +37,7 @@ let findSimilarityScore (listOfLists: string list list) : string =
                     printfn "value: %s leftCount: %i, rightCount: %i, similarity score: %i" value leftCount rightCount (leftCount * rightCount)
                     similarityScore
                 | None -> 
-                    let similarityScore = acc + (int value * leftCount * 0)  // No match in countRight
+                    let similarityScore = acc + (int value * leftCount * 0)  
                     printfn "value: %s leftCount: %i, rightCount: 0, similarity score: %i" value leftCount (leftCount * 0)
                     similarityScore
             ) 0
