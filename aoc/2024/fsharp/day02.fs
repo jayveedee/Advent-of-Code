@@ -1,13 +1,17 @@
 module day02
 
-let countSafeReports (input: int list list) (removeUnsafeLevel: bool) : string =
+let countSafeReports (input: string list list) (removeUnsafeLevel: bool) : string =
     let isStrictlyIncreasingWithStep lst =
         List.pairwise lst 
-        |> List.forall (fun (a, b) -> a < b && b - a >= 1 && b - a <= 3)
+        |> List.forall (fun (a, b) -> 
+            let A, B = int a, int b
+            A < B && B - A >= 1 && B - A <= 3)
 
     let isStrictlyDecreasingWithStep lst =
         List.pairwise lst 
-        |> List.forall (fun (a, b) -> a > b && a - b >= 1 && a - b <= 3) 
+        |> List.forall (fun (a, b) -> 
+            let A, B = int a, int b
+            A > B && A - B >= 1 && A - B <= 3) 
 
     if removeUnsafeLevel then
         let generateSublists lst =
@@ -47,9 +51,7 @@ let countSafeReports (input: int list list) (removeUnsafeLevel: bool) : string =
 
         string (increasingCount + decreasingCount)
 
-
-
-let run (part: int) (input: int list list) : string =
+let run (part: int) (input: string list list) : string =
     match part with
     | 1 -> countSafeReports input false
     | 2 -> countSafeReports input true
