@@ -14,7 +14,7 @@ let parseDayAndPart (day: string) (part: string) =
 // dotnet run -- <day> <part> <use example>
 [<EntryPoint>]
 let main argv =
-    let useExample = Array.length argv = 3
+    let useExample = Array.length argv >= 3
     match argv with
     | [| day; part |] | [| day; part; _ |] ->  
         match parseDayAndPart day part with
