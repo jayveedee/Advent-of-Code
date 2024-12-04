@@ -4,6 +4,7 @@ open InputHandler
 open day01
 open day02
 open day03
+open day04
 
 let parseDayAndPart (day: string) (part: string) =
     match System.Int32.TryParse(day), System.Int32.TryParse(part) with
@@ -23,6 +24,7 @@ let main argv =
                 | 1 -> day01.run partInt (InputHandler.getPuzzleInputT day useExample)
                 | 2 -> day02.run partInt (InputHandler.getPuzzleInput day useExample)
                 | 3 -> day03.run partInt (InputHandler.getPuzzleInput day useExample)
+                | 4 -> day04.run partInt (InputHandler.getPuzzleInput day useExample)
                 | _ -> failwith "Error: Day not implemented."
 
             printfn "Result for day%d part%d: %s" dayInt partInt result
