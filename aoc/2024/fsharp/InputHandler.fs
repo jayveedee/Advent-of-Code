@@ -2,7 +2,7 @@
 
 open System.IO
 
-let getPuzzleInput (day: string) (useExample: bool): (string list list) =
+let getRawPuzzleInput (day: string) (useExample: bool): (string list) =
     let dir = Directory.GetCurrentDirectory()
     let dayPath = if useExample then "0" else day
     let path = Path.Combine(dir, "..", "inputs", $"day{dayPath}.txt")
@@ -11,20 +11,24 @@ let getPuzzleInput (day: string) (useExample: bool): (string list list) =
     printfn "Getting input from: %s" fullPath
     let lines = File.ReadAllLines(fullPath)
 
-    let filteredLines = lines |> Array.filter (fun line -> line.Trim() <> "")
+    Array.toList lines
+
+let getFilteredPuzzleInput (day: string) (useExample: bool): (string list list) =
+    let lines = getRawPuzzleInput day useExample
+
+    let filteredLines = lines |> List.filter (fun line -> line.Trim() <> "")
 
     let input = 
         filteredLines
-        |> Array.map (fun line ->
+        |> List.map (fun line ->
             line.Split([| ' '; '\t'; '\n'; '\r' |], System.StringSplitOptions.RemoveEmptyEntries)
             |> Array.toList
         )
-        |> Array.toList
 
     input
 
-let getPuzzleInputT (day: string) (useExample: bool): (string list list) =
-    let input = getPuzzleInput day useExample
+let getFilteredPuzzleInputT (day: string) (useExample: bool): (string list list) =
+    let input = getFilteredPuzzleInput day useExample
 
     let rec transpose lists =
         match lists with

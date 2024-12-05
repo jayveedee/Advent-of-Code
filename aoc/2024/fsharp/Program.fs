@@ -5,6 +5,7 @@ open day01
 open day02
 open day03
 open day04
+open day05
 
 let parseDayAndPart (day: string) (part: string) =
     match System.Int32.TryParse(day), System.Int32.TryParse(part) with
@@ -21,10 +22,11 @@ let main argv =
         | Some(dayInt, partInt) ->  
             let result = 
                 match dayInt with
-                | 1 -> day01.run partInt (InputHandler.getPuzzleInputT day useExample)
-                | 2 -> day02.run partInt (InputHandler.getPuzzleInput day useExample)
-                | 3 -> day03.run partInt (InputHandler.getPuzzleInput day useExample)
-                | 4 -> day04.run partInt (InputHandler.getPuzzleInput day useExample)
+                | 1 -> day01.run partInt (InputHandler.getFilteredPuzzleInputT day useExample)
+                | 2 -> day02.run partInt (InputHandler.getFilteredPuzzleInput day useExample)
+                | 3 -> day03.run partInt (InputHandler.getFilteredPuzzleInput day useExample)
+                | 4 -> day04.run partInt (InputHandler.getFilteredPuzzleInput day useExample)
+                | 5 -> day05.run partInt (InputHandler.getRawPuzzleInput day useExample)
                 | _ -> failwith "Error: Day not implemented."
 
             printfn "Result for day%d part%d: %s" dayInt partInt result
